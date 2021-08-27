@@ -1,0 +1,51 @@
+@import "Utility.css";
+
+:root {
+  --primary-color:	rgb(17, 16, 16);
+  --secondary-color:#ff443a;
+  --bgc-color:#39393d;
+  --header-color:rgba(255, 68, 58, 0.794); 
+  --offwhite-color:rgba(255, 255, 255, 0.87);
+  --text-white-color:rgba(255, 255, 255, 0.87);  
+	--button-secondary:rgba(56, 56, 56, 0.301);
+  --text-dark-color:#000;
+  --text-error:rgb(102, 210, 255);
+}
+/* --clr-green: #28a745;
+--clr-green2: #115320; */
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bgc-color);
+  color:var(--text-white-color);
+}
+
+.main-container {
+  display: grid;
+  width: 100%;
+  grid-template-areas: 
+  "nav nav nav"
+  "main main main"
+  "footer footer footer ";
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: 100px auto 10vh;
+}
+
+.navbar-container {
+  grid-area: nav;
+}
+
+.main-wrapper {
+  grid-area: main;
+  min-height: 80vh;
+}
+
+.footer-container {
+  grid-area: footer;
+}
+

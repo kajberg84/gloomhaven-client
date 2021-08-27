@@ -1,0 +1,6 @@
+
+/* error message */
+.login-error{
+  margin-top: 0.5rem;
+  color:var(--text-error);
+}

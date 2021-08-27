@@ -1,0 +1,18 @@
+.regform input {
+  margin-top: 10px;
+}
+
+/* error message */
+.user-registrated {
+ font-size: 4rem;
+ text-align: center; 
+}
+
+.user-error{
+  color:var(--text-error);
+}
+
+.password-text{
+  font-size:0.6rem;
+  text-align: center;
+}

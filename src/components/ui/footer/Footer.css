@@ -1,0 +1,21 @@
+.container-footer{
+  background-color:  var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-white-color);
+  height: 100%;
+  z-index: 100;
+}
+
+ul li {
+  list-style: none;
+}
+
+.textinfo {
+  margin: 0 1rem;
+}
+
+.footer-updated-text{
+  font-size: 0.7rem;
+}
