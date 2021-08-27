@@ -1,5 +1,1 @@
-about me 
-kontakt
-projects
-
-
+fixa med gloomie
