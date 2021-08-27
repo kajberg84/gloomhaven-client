@@ -24,7 +24,7 @@ const Login = () => {
   function handleRespLogin(tokens) {
     setAppUser(userEmail);
     setUserToken(tokens);
-    history.push("/about");
+    history.push("/");
   }
 
   // Handling Login

@@ -39,17 +39,28 @@ const logoutUser = () => {
           <div>
             <ul className="hamburger-ul">
               {appUser ? (
-                <li>
-                  <Link
-                    className="hamb-links"
-                    to="/login"
-                    onClick={() => {
-                      logoutUser();
-                    }}
-                  >
-                    Logout
-                  </Link>
-                </li>
+                <div>
+                  <li>
+                    <Link
+                      className="hamb-links"
+                      to="/login"
+                      onClick={() => {
+                        logoutUser();
+                      }}
+                    >
+                      Logout
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="hamb-links"
+                      to="/gloom"
+                      onClick={() => changeCheckBox()}
+                    >
+                      Gloom
+                    </Link>
+                  </li>
+                </div>
               ) : (
                 <p>
                   <li>
@@ -72,19 +83,6 @@ const logoutUser = () => {
                   </li>
                 </p>
               )}
-              {/* login reg */}
-
-              {/* login reg */}
-
-              <li>
-                <Link
-                  className="hamb-links"
-                  to="/gloom"
-                  onClick={() => changeCheckBox()}
-                >
-                  Gloom
-                </Link>
-              </li>
 
               <li>
                 <Link

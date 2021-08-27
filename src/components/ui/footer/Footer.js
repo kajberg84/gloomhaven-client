@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="textinfo">
         <ul>
           <li>Kaj Berg</li>
-          <li className="footer-updated-text">Updated 17/8-21</li>
+          <li className="footer-updated-text">Updated 27/8-21</li>
         </ul>
       </div>
 
