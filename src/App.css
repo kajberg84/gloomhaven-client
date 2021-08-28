@@ -7,12 +7,10 @@
   --header-color:rgba(255, 68, 58, 0.794); 
   --offwhite-color:rgba(255, 255, 255, 0.87);
   --text-white-color:rgba(255, 255, 255, 0.87);  
-	--button-secondary:rgba(56, 56, 56, 0.301);
   --text-dark-color:#000;
   --text-error:rgb(102, 210, 255);
 }
-/* --clr-green: #28a745;
---clr-green2: #115320; */
+
 * {
   margin: 0;
   padding: 0;
