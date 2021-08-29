@@ -25,7 +25,7 @@ const Login = () => {
     setAppUser(userEmail);
     setUserToken(tokens);
     console.log(tokens);
-    history.push("/");
+    history.push("/gloom");
   }
 
   // Handling Login

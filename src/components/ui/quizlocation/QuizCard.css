@@ -1,0 +1,15 @@
+/* style every location */
+.location-wrapper{
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  border:2px solid red;
+  height: 2rem;
+  justify-content: center;
+  margin-top: 0.2rem;
+}
+
+.location-info-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
