@@ -1,15 +1,15 @@
 import "./QuizCard.css"
 
 const QuizCard = (props) => {
-  const { locationnumber, locationname, id, changecomp } = props;
-  console.log(props)
+  const { locationnumber, locationname, id, changecomp} = props;
+
   return ( 
   <div  className="location-wrapper">
     <div className="location-info-wrapper">
-      <p>
+      <p > 
         #{locationnumber} {locationname}
       </p>
-      <button className="location-compl-button" onClick={()=> changecomp(id)}>Done</button>
+      <button onClick={()=> changecomp(id) }>Done</button>
     </div>
   </div>
    );

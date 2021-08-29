@@ -21,6 +21,7 @@
 html {
   background-color: var(--bgc-color);
   color:var(--text-white-color);
+	font-family: 'Montserrat', sans-serif;
 }
 
 .main-container {

@@ -4,6 +4,10 @@ import { checkEnvironment } from "../../api/checkEnv";
 import axios from "axios";
 import { UserContext } from "../../statemanagement/UserContext";
 import QuizCard from '../../ui/quizlocation/QuizCard';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons/faArrowDown";
+
+const arrowDown = <FontAwesomeIcon icon={faArrowDown} />;
 
 const Gloom = () => {
   const [locationsArray, setLocationsArray] = useState([]);
@@ -15,6 +19,22 @@ const Gloom = () => {
 
   const { tokenValue } = useContext(UserContext);
   const [userToken, setUserToken] = tokenValue;
+
+  // Filter locations array
+  const availableLocations = () => {
+    const filteredArray = locationsArray.filter((location) => {
+      return !location.completed;
+    });
+    setAvailableArray(filteredArray);
+  };
+
+  // Filter completed array
+  const completedLocations = () => {
+    const filteredArray = locationsArray.filter((location) => {
+      return location.completed;
+    });
+    setCompletedArray(filteredArray);
+  };
 
   // Hämta från DB
   useEffect(() => {
@@ -36,10 +56,7 @@ const Gloom = () => {
         });
         const locationArray = response.data;
         if (locationArray.length > 0) {
-          console.log("useeffekt")
           setLocationsArray(locationArray);
-          availableLocations();
-          completedLocations();
         }
       } catch (error) {
         console.log("error i get location");
@@ -49,66 +66,48 @@ const Gloom = () => {
     getLocations();
   }, []);
 
-  {
-    /* <form>
-        <input 
-        type="text"
-        onChange={(e)=>setLocation(e.target.value)}
-        value={location}
-        placeholder="Add Location here"
-        />
-        <button 
-        type="submit"
-        >Add</button>
-      </form> */
-  }
-
-  // Filter locations array
-  const availableLocations = () => {
-      const filteredArray = locationsArray.filter((location) => {
-        return !location.completed;
-      });
-      setAvailableArray(filteredArray)
-  };
-
-  // Filter completed array
-  const completedLocations = () => {
-    const filteredArray = locationsArray.filter((location) => {
-      return location.completed;
-    });
-    setCompletedArray(filteredArray)
-};
+  // När arrayen från databasen ändras
+  useEffect(() => {
+    availableLocations();
+    completedLocations();
+  }, [locationsArray]);
 
   //change state on unlocked
   const toggleUnlocked = () => {
     setUnlocked(!unlocked);
   };
- //change state on available
+  //change state on available
   const toggleAvailable = () => {
     setAvailable(!available);
   };
-   //change state on completed
+  //change state on completed
   const toggleCompleted = () => {
     setCompleted(!completed);
   };
 
   const changeCompleted = (locationId) => {
-    console.log("kossa", locationId)
-  }
+    console.log("kossa", locationId);
+  };
 
   return (
     <div className="all-locations-wrapper">
-      <div className="reputation">Reputation Bar Here</div>
+      <div className="reputation disp-flex">rep bar here</div>
       <div className="location">
         {/* unlocked locations */}
         <div>
           <button className="location-buttons" onClick={() => toggleUnlocked()}>
-            Unlocked
+            <p> </p>
+            <p className="button-text">Unlocked</p>
+            <p className="button-icon"> {arrowDown} </p>
           </button>
           <div className={`${unlocked ? "block" : "none"}`}>
-            {locationsArray.map((location) => 
-            <QuizCard key={location.id} {...location} changecomp={changeCompleted}/>
-            )}
+            {locationsArray.map((location) => (
+              <QuizCard
+                key={location.id}
+                {...location}
+                changecomp={changeCompleted}
+              />
+            ))}
           </div>
         </div>
 
@@ -118,12 +117,18 @@ const Gloom = () => {
             className="location-buttons"
             onClick={() => toggleAvailable()}
           >
-            Available(Not completed)
+            <p> </p>
+            <p className="button-text">Available(Not completed)</p>
+            <p className="button-icon"> {arrowDown} </p>
           </button>
           <div className={`${available ? "block" : "none"}`}>
-            {availableArray.map((location) => 
-                  <QuizCard key={location.id} {...location}/>
-                  )}
+            {availableArray.map((location) => (
+              <QuizCard
+                key={location.id}
+                {...location}
+                changecomp={changeCompleted}
+              />
+            ))}
           </div>
         </div>
 
@@ -133,12 +138,18 @@ const Gloom = () => {
             className="location-buttons"
             onClick={() => toggleCompleted()}
           >
-            Completed
+            <p> </p>
+            <p className="button-text">Completed</p>
+            <p className="button-icon"> {arrowDown} </p>
           </button>
           <div className={`${completed ? "block" : "none"}`}>
-            {completedArray.map((location) => 
-                  <QuizCard key={location.id} {...location}/>
-                  )}
+            {completedArray.map((location) => (
+              <QuizCard
+                key={location.id}
+                {...location}
+                changecomp={changeCompleted}
+              />
+            ))}
           </div>
         </div>
       </div>
