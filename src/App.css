@@ -1,13 +1,13 @@
 @import "Utility.css";
 
 :root {
-  --primary-color:	rgb(17, 16, 16);
+  --primary-color:	#121212;
   --secondary-color:#ff443a;
-  --bgc-color:#39393d;
+  --bgc-color:rgb(57, 57, 61);
   --header-color:rgba(255, 68, 58, 0.794); 
   --offwhite-color:rgba(255, 255, 255, 0.87);
   --text-white-color:rgba(255, 255, 255, 0.87);  
-  --text-dark-color:#000;
+  --text-dark-color:#121212;
   --text-error:rgb(102, 210, 255);
 }
 

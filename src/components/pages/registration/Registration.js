@@ -66,7 +66,7 @@ const Registration = () => {
         <form onSubmit={handleSubmit} noValidate className="regform">
           {/* email */}
           <input
-            className="form-control"
+            className="form-control form-input"
             type="email"
             name="email"
             placeholder="Epost"
@@ -75,7 +75,7 @@ const Registration = () => {
           />
 
           <input
-            className="form-control"
+            className="form-control form-input"
             type="email"
             name="email2"
             placeholder="Återupprepa epost"
@@ -84,7 +84,7 @@ const Registration = () => {
           />
           <div className="user-error">{errorHandling.email}</div>
           <input
-            className="form-control"
+            className="form-control form-input"
             type="password"
             name="password"
             placeholder="Lösenord"
@@ -95,7 +95,7 @@ const Registration = () => {
            Lösenordet måste innehålla minst 10 tecken.
           </div>
           <input
-            className="form-control"
+            className="form-control form-input"
             type="password"
             name="password2"
             placeholder="Återupprepa lösenord"

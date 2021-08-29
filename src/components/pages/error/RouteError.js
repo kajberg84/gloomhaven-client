@@ -3,7 +3,9 @@ import './Routeerror.css'
 
 const RouteError = () => {
   return ( 
-    <h1> Wrong Route</h1>
+    <div>
+      <h1> Wrong Route or Unauthorized </h1>
+    </div>
    );
 }
  

@@ -20,7 +20,7 @@
 }
 
 /* input fields, */
-  input, 
+  .form-input, 
   .form-button {
   width: 100%;
   border: none;

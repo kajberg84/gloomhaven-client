@@ -24,6 +24,7 @@ const Login = () => {
   function handleRespLogin(tokens) {
     setAppUser(userEmail);
     setUserToken(tokens);
+    console.log(tokens);
     history.push("/");
   }
 
@@ -41,7 +42,6 @@ const Login = () => {
       );
 
       if (responseLogin) {
-        console.log("login true");
         handleRespLogin(responseLogin);
       } else {
         console.log("login response false, fel lösen / user");
@@ -61,7 +61,7 @@ const Login = () => {
         <h1 className="form-header">Logga in</h1>
         <form onSubmit={handleLogin} noValidate>
           <input
-            className="form-control"
+            className="form-control form-input"
             type="email"
             name="email"
             placeholder="Epost"
@@ -76,7 +76,7 @@ const Login = () => {
 
           {/* password */}
           <input
-            className="form-control"
+            className="form-control form-input"
             type="password"
             name="password"
             placeholder="Lösenord"

@@ -15,14 +15,12 @@ import Hamburger from "../hamburger/Hamburger";
  * @return {*}
  */
 const Navbar = () => {
-  const [isChecked, setIsChecked] = useState(false);
   const { userValue } = useContext(UserContext);
   const [appUser, setAppUser] = userValue;
   let history = useHistory();
 
   const logoutUser = () => {
-    setIsChecked(!isChecked);
-    localStorage.clear();
+    localStorage.removeItem('userTokens');
     setAppUser(null);
     history.push("/login");
   };

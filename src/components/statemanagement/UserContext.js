@@ -20,9 +20,9 @@ const UserProvider = ({ children }) => {
  })
 
 // setting userToken to localstorage
-function setUserTokenLocalStorage(userTokens) {
-  if (typeof window !== 'undefined' && userTokens !== '') {
-    window.localStorage.setItem('userTokens', userTokens)
+function setUserTokenLocalStorage(tokens) {
+  if (typeof window !== 'undefined' && tokens !== '') {
+    window.localStorage.setItem('userTokens',  JSON.stringify(tokens))
   } else {
     window.localStorage.removeItem('userTokens')
   }

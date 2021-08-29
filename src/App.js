@@ -14,6 +14,8 @@ import RouteError from "./components/pages/error/RouteError";
 import Gloom from './components/pages/gloom/Gloom'
 // Functional
 import UserProvider from './components/statemanagement/UserContext';
+import ProtectedRoute from "./ProtectedRoute";
+
 
 /**
  * Main rendering view
@@ -42,12 +44,13 @@ const App = () => {
             <Route exact path="/registration">
               <Registration />
             </Route>
-            <Route exact path="/gloom">
-              <Gloom />
-            </Route>
             <Route exact path="/contact">
               <Contact />
             </Route>
+            <Route exact path="/unauthorized">
+              <RouteError />
+            </Route>
+            <ProtectedRoute exact path ="/gloom" component={Gloom}/>
             <Route exact path="*">
               <RouteError />
             </Route>
