@@ -1,0 +1,11 @@
+/* location button */
+.location-buttons {
+  width: 100%;
+  padding: 0.5rem 0;
+  margin-top: 0.2rem;
+  background-color: var(--offwhite-color);
+  color: var(--primary-color);
+  display: flex;
+  justify-content: space-between;
+}
+

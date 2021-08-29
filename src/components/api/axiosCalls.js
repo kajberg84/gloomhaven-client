@@ -27,6 +27,25 @@ try {
 }
 }
 
+export async function postLocations(array, URL, token) {
+const sendURL = `${checkEnvironment()}/${URL}`
+  try {
+    await axios({
+      url: sendURL,
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+      data: {
+        glooms: array
+      }
+    })          
+  } catch (error) {
+    console.log("error i post Location");
+    console.log(error.message);
+  }
+}
+
     /**
  * Query post with axios
  * 
