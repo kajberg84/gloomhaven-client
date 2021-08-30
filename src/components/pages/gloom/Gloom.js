@@ -3,8 +3,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { checkEnvironment } from "../../api/checkEnv";
 import { getToken } from "../../api/getToken";
 import axios from "axios";
-import { postLocations } from "../../api/axiosCalls";
-import { UserContext } from "../../statemanagement/UserContext";
+// import { postLocations } from "../../api/axiosCalls";
+// import { UserContext } from "../../statemanagement/UserContext";
 import QuizCard from "../../ui/quizlocation/QuizCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons/faArrowDown";
@@ -24,24 +24,18 @@ const Gloom = () => {
   const [available, setAvailable] = useState(false);
   const [completed, setCompleted] = useState(false);
 
-  const { tokenValue } = useContext(UserContext);
-  const [userToken] = tokenValue;
-
-  // Filter locations array
+  // Filter locations array for avaialable/completed
   const availableLocations = () => {
-    const filteredArray = locationsArray.filter((location) => {
+    const filteredAvailable = locationsArray.filter((location) => {
       return !location.completed;
     });
-    setAvailableArray(filteredArray);
-  };
-
-  // Filter completed array
-  const completedLocations = () => {
-    const filteredArray = locationsArray.filter((location) => {
+    const filteredCompleted = locationsArray.filter((location) => {
       return location.completed;
     });
-    setCompletedArray(filteredArray);
+    setAvailableArray(filteredAvailable);
+    setCompletedArray(filteredCompleted);
   };
+ 
 
   // Hämta från DB
   useEffect(() => {
@@ -73,37 +67,36 @@ const Gloom = () => {
   }, []);
 
   // När arrayen från databasen ändras
-  // Kanske inte ha     availableLocations();     completedLocations(); häri????
+  // Kanske inte ha     availableLocations(); häri????
 
   useEffect(() => {
     console.log("posting location to DB");
     async function updateLocations() {
-      try {
-        const accToken = getToken();
-        if (!accToken) {
-          const error = new Error("no access");
-          error.status = 401;
-          throw error;
-        }
-        const sendURL = `${checkEnvironment()}/gloom`
-        await axios({
-          url: sendURL,
-          method: "POST",
-          headers: {
-            Authorization: "Bearer " + accToken,
-          },
-          data: {
-            glooms: locationsArray
+        try {
+          const accToken = getToken();
+          if (!accToken) {
+            const error = new Error("no access");
+            error.status = 401;
+            throw error;
           }
-        })          
-      } catch (error) {
-        console.log("error i post Location");
-        console.log(error.message);
-      }
+          const sendURL = `${checkEnvironment()}/gloom`
+          await axios({
+            url: sendURL,
+            method: "POST",
+            headers: {
+              Authorization: "Bearer " + accToken,
+            },
+            data: {
+              glooms: locationsArray
+            }
+          })          
+        } catch (error) {
+          console.log("error i post Location");
+          console.log(error.message);
+        }
+      availableLocations();      
     }    
-      updateLocations();
-      availableLocations();
-      completedLocations();
+    updateLocations();
   }, [locationsArray]);
 
   //change state on unlocked
