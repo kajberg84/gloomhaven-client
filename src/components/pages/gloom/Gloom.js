@@ -67,33 +67,9 @@ const Gloom = () => {
   }, []);
 
   // När arrayen från databasen ändras
-  // Kanske inte ha     availableLocations(); häri????
-
   useEffect(() => {
-    console.log("posting location to DB");
-    async function updateLocations() {
-        try {
-          const accToken = getToken();
-          if (!accToken) {
-            const error = new Error("no access");
-            error.status = 401;
-            throw error;
-          }
-          const sendURL = `${checkEnvironment()}/gloom`
-          await axios({
-            url: sendURL,
-            method: "POST",
-            headers: {
-              Authorization: "Bearer " + accToken,
-            },
-            data: {
-              glooms: locationsArray
-            }
-          })          
-        } catch (error) {
-          console.log("error i post Location");
-          console.log(error.message);
-        }
+    console.log("upd locationarray");
+    function updateLocations() {
       availableLocations();      
     }    
     updateLocations();
@@ -126,7 +102,7 @@ const Gloom = () => {
       return;
     }
 
-    //Create DB objektet
+    // Create DB object
     const newLocation = {
       id: new Date().getTime(),
       locationnumber: locationNumber,
@@ -140,6 +116,32 @@ const Gloom = () => {
     setLocationNumber("");
   };
 
+  // Saving to db
+  const  saveToDataBase = async () => {
+    console.log("save db")
+    try {
+      const accToken = getToken();
+      if (!accToken) {
+        const error = new Error("no access");
+        error.status = 401;
+        throw error;
+      }
+      const sendURL = `${checkEnvironment()}/gloom`
+      await axios({
+        url: sendURL,
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + accToken,
+        },
+        data: {
+          glooms: locationsArray
+        }
+      })          
+    } catch (error) {
+      console.log("error i post Location");
+      console.log(error.message);
+    }
+  }
   return (
     <div className="all-locations-wrapper">
       <div className="reputation disp-flex">rep bar here</div>
@@ -209,6 +211,12 @@ const Gloom = () => {
             ))}
           </div>
         </div>
+
+        <button 
+        onClick={()=> saveToDataBase()}        className="location-form-wrapper">
+            SAVE to db
+          </button>
+
       </div>
     </div>
   );
