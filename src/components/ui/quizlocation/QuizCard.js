@@ -1,5 +1,4 @@
 import "./QuizCard.css"
-// import ButtonSmall from "../buttonSmall/ButtonSmall";
 
 const QuizCard = (props) => {
   const { locationnumber, locationname, id, changecomp } = props;
@@ -7,11 +6,10 @@ const QuizCard = (props) => {
   return (
     <div className="location-wrapper">
       <div className="location-info-wrapper">
-        <p>
+        <p className="ml10">
           #{locationnumber} {locationname}
         </p>
-        <button onClick={() => changecomp(id)} className="small-button">
-          {/* <ButtonSmall /> */}
+        <button onClick={() => changecomp(id)} className="small-button mr10">
           Done
         </button>
       </div>

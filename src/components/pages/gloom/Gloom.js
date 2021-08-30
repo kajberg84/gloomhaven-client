@@ -146,7 +146,7 @@ const Gloom = () => {
       <div className="location">
         {/* Form for adding*/}
         <form onSubmit={handleSubmitLocation} className="location-form-wrapper">
-          <div>
+          <div className="ml10">
             <input
               type="text"
               onChange={(e) => setLocationNumber(e.target.value)}
@@ -161,7 +161,7 @@ const Gloom = () => {
             />
           </div>
 
-          <button type="submit" className="button-right">
+          <button type="submit" className="mr10 small-button">
             Lägg till
           </button>
         </form>

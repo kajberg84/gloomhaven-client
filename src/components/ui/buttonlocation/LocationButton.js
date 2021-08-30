@@ -14,7 +14,7 @@ const LocationButton = (props) => {
   >
     <p> </p>
     <p className="button-text">{buttonName}</p>
-    <p className="button-right"> {arrowDown} </p>
+    <p className="mr10"> {arrowDown} </p>
   </button>
    );
 }
