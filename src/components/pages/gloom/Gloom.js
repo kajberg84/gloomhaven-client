@@ -68,7 +68,6 @@ const Gloom = () => {
 
   // När arrayen från databasen ändras
   useEffect(() => {
-    console.log("upd locationarray");
     function updateLocations() {
       availableLocations();      
     }    
@@ -118,7 +117,6 @@ const Gloom = () => {
 
   // Saving to db
   const  saveToDataBase = async () => {
-    console.log("save db")
     try {
       const accToken = getToken();
       if (!accToken) {

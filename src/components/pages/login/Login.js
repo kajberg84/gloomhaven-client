@@ -24,7 +24,6 @@ const Login = () => {
   function handleRespLogin(tokens) {
     setAppUser(userEmail);
     setUserToken(tokens);
-    console.log(tokens);
     history.push("/gloom");
   }
 
