@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect } from 'react'
 import { checkEnvironment } from '../api/checkEnv';
 import axios from 'axios';
 import { getToken } from '../api/getToken';
+import jwt_decode from "jwt-decode";
 export const UserContext = createContext(null)
 
 /**
@@ -30,7 +31,6 @@ const UserProvider = ({ children }) => {
 function setUserTokenLocalStorage(tokens) {
   if (typeof window !== 'undefined' && tokens !== '') {
     window.localStorage.setItem('userTokens',  JSON.stringify(tokens))
-    console.log("setting tokens to storage", JSON.stringify(tokens))
   } else {
     window.localStorage.removeItem('userTokens')
   }
@@ -39,15 +39,15 @@ function setUserTokenLocalStorage(tokens) {
 // Updating usertoken if changed/refreshed
 useEffect(() => {
   setUserTokenLocalStorage(userToken)
+  const parsedJwt = jwt_decode(userToken.access_token);
+  setAppUser(parsedJwt.email);
 }, [userToken])
 
 // Validating User Authentication on Page refreshes
 useEffect(() => {
   async function checkAuth() {
-
     try {
       const accToken = getToken();
-      console.log("i useeffekt rad 46", accToken)
       if (!accToken) {
         const error = new Error('no access token')
         error.status = 401
@@ -59,12 +59,13 @@ useEffect(() => {
         headers: {
           Authorization:'Bearer ' + accToken
       }})
-      console.log("response from refresh", response.data)
       const { respTokens, userData } = response.data
+      console.log("userdata in refresh1111", response.data)
+
       if (!respTokens) {
         throw new Error('Cannot get access token')
       }
-
+      console.log("userdata in refresh", userData)
       setUserToken(respTokens)
       setAppUser(userData)
 

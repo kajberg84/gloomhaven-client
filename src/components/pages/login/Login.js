@@ -3,11 +3,12 @@ import './Login.css'
 import React, { useState, useContext} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-
 // Functional imports
 import { UserContext } from '../../statemanagement/UserContext';
 import { postAxios } from '../../api/axiosCalls';
 import { loginFormValidation } from "../../api/formValidation";
+import jwt_decode from "jwt-decode";
+
 const Login = () => {
   const { userValue, tokenValue } = useContext(UserContext);
   const [appUser, setAppUser] = userValue;
@@ -22,8 +23,9 @@ const Login = () => {
 
   // Handling response from Login
   function handleRespLogin(tokens) {
-    setAppUser(userEmail);
     setUserToken(tokens);
+    const parsedJwt = jwt_decode(tokens.access_token);
+    setAppUser(parsedJwt.email);
     history.push("/gloom");
   }
 
@@ -39,7 +41,7 @@ const Login = () => {
         {},
         `login?email=${userEmail}&password=${userPassword}`
       );
-
+        console.log("response login", responseLogin)
       if (responseLogin) {
         handleRespLogin(responseLogin);
       } else {
