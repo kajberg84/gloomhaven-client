@@ -31,6 +31,8 @@ const UserProvider = ({ children }) => {
 function setUserTokenLocalStorage(tokens) {
   if (typeof window !== 'undefined' && tokens !== '') {
     window.localStorage.setItem('userTokens',  JSON.stringify(tokens))
+    const parsedJwt = jwt_decode(userToken.access_token);
+    setAppUser(parsedJwt.email);
   } else {
     window.localStorage.removeItem('userTokens')
   }
@@ -39,8 +41,7 @@ function setUserTokenLocalStorage(tokens) {
 // Updating usertoken if changed/refreshed
 useEffect(() => {
   setUserTokenLocalStorage(userToken)
-  const parsedJwt = jwt_decode(userToken.access_token);
-  setAppUser(parsedJwt.email);
+
 }, [userToken])
 
 // Validating User Authentication on Page refreshes

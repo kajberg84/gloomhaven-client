@@ -1,7 +1,7 @@
 import "./QuizCard.css"
 
 const QuizCard = (props) => {
-  const { locationnumber, locationname, id, changecomp } = props;
+  const { locationnumber, locationname, id, changecomp,deletecomp, buttonname } = props;
 
   return (
     <div className="location-wrapper">
@@ -9,8 +9,11 @@ const QuizCard = (props) => {
         <p className="ml10">
           #{locationnumber} {locationname}
         </p>
+        <button onClick={() => deletecomp(id)} className="small-button mr10">
+          Remove
+        </button>
         <button onClick={() => changecomp(id)} className="small-button mr10">
-          Done
+          {buttonname}
         </button>
       </div>
     </div>

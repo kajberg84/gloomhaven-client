@@ -3,28 +3,22 @@ import React, { useState, useEffect, useContext } from "react";
 import { checkEnvironment } from "../../api/checkEnv";
 import { getToken } from "../../api/getToken";
 import axios from "axios";
-// import { postLocations } from "../../api/axiosCalls";
-// import { UserContext } from "../../statemanagement/UserContext";
 import QuizCard from "../../ui/quizlocation/QuizCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown } from "@fortawesome/free-solid-svg-icons/faArrowDown";
 import LocationButton from "../../ui/buttonlocation/LocationButton";
-
-const arrowDown = <FontAwesomeIcon icon={faArrowDown} />;
 
 const Gloom = () => {
   const [locationsArray, setLocationsArray] = useState([]);
   const [availableArray, setAvailableArray] = useState([]);
   const [completedArray, setCompletedArray] = useState([]);
-  // Enskilt Location
+  // Single Location
   const [location, setLocation] = useState("");
   const [locationNumber, setLocationNumber] = useState("");
-
+  // Button states
   const [unlocked, setUnlocked] = useState(false);
   const [available, setAvailable] = useState(false);
   const [completed, setCompleted] = useState(false);
 
-  // Filter locations array for avaialable/completed
+  // Filter locations array for available/completed
   const availableLocations = () => {
     const filteredAvailable = locationsArray.filter((location) => {
       return !location.completed;
@@ -36,8 +30,7 @@ const Gloom = () => {
     setCompletedArray(filteredCompleted);
   };
  
-
-  // Hämta från DB
+  // Get from DB
   useEffect(() => {
     async function getLocations() {
       try {
@@ -55,8 +48,13 @@ const Gloom = () => {
           },
         });
         const locationArray = response.data;
+        
         if (locationArray.length > 0) {
-          setLocationsArray(locationArray);
+          //Sorting array by location number
+          const sortedCartItems = locationArray.sort((a,b) => {
+            return a.locationnumber - b.locationnumber
+          })
+          setLocationsArray(sortedCartItems);
         }
       } catch (error) {
         console.log("error i get location");
@@ -66,13 +64,14 @@ const Gloom = () => {
     getLocations();
   }, []);
 
-  // När arrayen från databasen ändras
+  // When array change from db
   useEffect(() => {
     function updateLocations() {
       availableLocations();      
     }    
     updateLocations();
   }, [locationsArray]);
+
 
   //change state on unlocked
   const toggleUnlocked = () => {
@@ -87,12 +86,22 @@ const Gloom = () => {
     setCompleted(!completed);
   };
 
+  // TOGGLE completed button
   const changeCompleted = (locationId) => {
-    console.log("kossa", locationId);
-    // toggle denna locations completed.
-    // skicka till db
-    // set updated value
+    const updatedLocations = [...locationsArray].map((item) => {
+      if(item.id === locationId) {
+        item.completed = !item.completed;
+      }
+      return item
+    })
+    setLocationsArray(updatedLocations)
   };
+
+  const deleteLocation = (locationId) => {
+    const updatedLocations = [...locationsArray].filter((item) => 
+    item.id !== locationId)
+    setLocationsArray(updatedLocations)
+  }
 
   const handleSubmitLocation = (e) => {
     e.preventDefault();
@@ -167,13 +176,15 @@ const Gloom = () => {
         </form>
         {/* unlocked locations */}
         <div>
-          <LocationButton toggleFunc={toggleUnlocked} buttonName="Unlocked" />
+          <LocationButton toggleFunc={toggleUnlocked} buttonName="Unlocked" openClosed={unlocked}/>
           <div className={`${unlocked ? "block" : "none"}`}>
             {locationsArray.map((location) => (
               <QuizCard
                 key={location.id}
                 {...location}
+                deletecomp={deleteLocation}
                 changecomp={changeCompleted}
+                buttonname="Done"
               />
             ))}
           </div>
@@ -184,13 +195,17 @@ const Gloom = () => {
           <LocationButton
             toggleFunc={toggleAvailable}
             buttonName="Available(Not completed)"
+            openClosed={available}
           />
           <div className={`${available ? "block" : "none"}`}>
             {availableArray.map((location) => (
               <QuizCard
                 key={location.id}
                 {...location}
+                deletecomp={deleteLocation}
                 changecomp={changeCompleted}
+                buttonname="Done"
+
               />
             ))}
           </div>
@@ -198,13 +213,15 @@ const Gloom = () => {
 
         {/* Completed locations */}
         <div>
-          <LocationButton toggleFunc={toggleCompleted} buttonName="Completed" />
+          <LocationButton toggleFunc={toggleCompleted} openClosed={completed} buttonName="Completed" />
           <div className={`${completed ? "block" : "none"}`}>
             {completedArray.map((location) => (
               <QuizCard
                 key={location.id}
                 {...location}
+                deletecomp={deleteLocation}
                 changecomp={changeCompleted}
+                buttonname="Undo"
               />
             ))}
           </div>
