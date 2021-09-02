@@ -5,16 +5,17 @@
     height: 100%;
     grid-template-areas: 
     "reputation "
+    "partymembers"
     "location"
     ;
     grid-template-columns:auto ;
-    grid-template-rows:60px 1fr;
+    grid-template-rows:60px min-content 1fr;
 }
 
-/* .party {
-  grid-area: party;
-  background-color: red;
-} */
+.partymembers {
+  grid-area: partymembers;
+  background-color: pink;
+}
 
 .reputation {
   grid-area: reputation;
