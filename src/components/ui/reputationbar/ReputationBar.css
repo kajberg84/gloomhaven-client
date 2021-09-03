@@ -1,0 +1,8 @@
+
+.tablerow1 > *{
+  display: inline-block;
+  width: 100%;
+  background-color: green;
+  outline: 2px solid black;
+  text-align: center;
+}

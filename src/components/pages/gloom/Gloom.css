@@ -4,12 +4,11 @@
     display: grid;
     height: 100%;
     grid-template-areas: 
-    "reputation "
     "partymembers"
     "location"
     ;
     grid-template-columns:auto ;
-    grid-template-rows:60px min-content 1fr;
+    grid-template-rows:min-content 1fr;
 }
 
 .partymembers {
@@ -24,8 +23,16 @@
 
 .location {
   grid-area: location;
+
 }
 
+.none{
+  display: none;
+}
+
+.block {
+  display: block;
+}
 
 .done {
   text-decoration: line-through;

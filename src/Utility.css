@@ -40,6 +40,9 @@
   flex-direction: column;
 }
 
+.row{
+  flex-direction: row;
+}
 /* button*/
 .btn {
   display: inline-block;

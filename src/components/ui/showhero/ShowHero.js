@@ -5,7 +5,7 @@ const ShowHero = (props) => {
     <div className="minor-wrapper ">
       <div className="hero-wrapper" >
         <p className="ml10">
-        {name} {heroClass},level {level}
+        {name} -- {heroClass},level: {level}
         </p>
         <div>
         <button className="small-button mr10">
