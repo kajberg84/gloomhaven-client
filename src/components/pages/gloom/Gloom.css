@@ -14,7 +14,7 @@
 
 .partymembers {
   grid-area: partymembers;
-  background-color: pink;
+
 }
 
 .reputation {
@@ -24,7 +24,6 @@
 
 .location {
   grid-area: location;
-  background-color: var(--bgc-color);
 }
 
 .none{
@@ -38,15 +37,3 @@
 .done {
   text-decoration: line-through;
 }
-
-.location-form-wrapper {
-  width: 100%;
-  padding: 0.5rem 0;
-  margin-top: 0.2rem;
-  background-color: var(--offwhite-color);
-  color: var(--primary-color);
-  display: flex;
-  border:2px solid var(--bgc-color);
-  justify-content: space-between;
-}
-

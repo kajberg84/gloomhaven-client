@@ -1,0 +1,10 @@
+.location-form-wrapper {
+  width: 100%;
+  padding: 0.2rem 0;
+  margin-top: 0.2rem;
+  background-color: var(--offwhite-color);
+  color: var(--primary-color);
+  display: flex;
+  border:2px solid var(--bgc-color);
+  justify-content: space-between;
+}

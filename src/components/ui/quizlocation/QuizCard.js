@@ -4,7 +4,7 @@ const QuizCard = (props) => {
   const { locationnumber, locationname, id, changecomp,deletecomp, buttonname } = props;
 
   return (
-    <div className="location-wrapper">
+    <div className="minor-wrapper">
       <div className="location-info-wrapper">
         <p className="ml10">
           #{locationnumber} {locationname}

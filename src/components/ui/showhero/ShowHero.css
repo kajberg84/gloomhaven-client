@@ -1,9 +1,7 @@
-/* style every location */
-
-.location-info-wrapper {
+.hero-wrapper {
   display: flex;
   justify-content: space-between;
+  width: 100%;
   align-items: center;
+  color: var(--text-white-color);
 }
-
-

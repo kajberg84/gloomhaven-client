@@ -78,3 +78,14 @@ color:var(--text-white-color);
   color: var(--text-white-color );
   padding: 0.2rem;  
 }
+
+.minor-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--header-color);
+  border:2px solid var(--primary-color);
+  color: var(--primary-color);
+  height: 2rem;
+  justify-content: center;
+  margin-top: 0.2rem;
+}

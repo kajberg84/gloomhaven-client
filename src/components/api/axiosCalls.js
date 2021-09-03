@@ -27,17 +27,14 @@ try {
 }
 }
 
-export async function postLocations(array, URL, token) {
-const sendURL = `${checkEnvironment()}/${URL}`
+export async function delHeroAxios(token, id) {
+const sendURL = `${checkEnvironment()}/heroes/${id}`
   try {
     await axios({
       url: sendURL,
-      method: "POST",
+      method: "DELETE",
       headers: {
         Authorization: "Bearer " + token,
-      },
-      data: {
-        glooms: array
       }
     })          
   } catch (error) {
@@ -45,6 +42,25 @@ const sendURL = `${checkEnvironment()}/${URL}`
     console.log(error.message);
   }
 }
+
+export async function getHeroesAxios(token){
+  try {
+    const response = await axios({
+      url: `${checkEnvironment()}/heroes/all`,
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    const responseArray = response.data;
+    console.log(responseArray);
+    return responseArray
+  } catch (error) {
+    console.log("Error in get heroes from db");
+    console.log(error);
+  }
+}
+
 
     /**
  * Query post with axios
