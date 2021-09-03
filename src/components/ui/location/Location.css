@@ -8,3 +8,11 @@
   border:2px solid var(--bgc-color);
   justify-content: space-between;
 }
+
+.loc-name {
+  display: flex;
+  justify-content: center;
+  color: var(--text-dark-color);
+  background-color: var(--secondary-color);
+}
+

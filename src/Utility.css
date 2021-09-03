@@ -74,7 +74,7 @@ color:var(--text-white-color);
 }
 
 .small-button {
-  background-color: var(--primary-color);
+  background-color: var(--bgc-color);
   color: var(--text-white-color );
   padding: 0.2rem;  
 }
@@ -88,4 +88,16 @@ color:var(--text-white-color);
   height: 2rem;
   justify-content: center;
   margin-top: 0.2rem;
+}
+
+
+.minor-wrapper:nth-child(odd) {
+  color: var(--text-white-color);
+ }
+.none{
+  display: none;
+}
+
+.block {
+  display: block;
 }

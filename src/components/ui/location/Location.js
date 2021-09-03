@@ -149,88 +149,102 @@ const Location = () => {
       console.log(error.message);
     }
   }
-  return ( 
+  return (
     <div>
-    {/* Form for adding*/}
-    <form onSubmit={handleSubmitLocation} className="location-form-wrapper">
-      <div className="ml10">
-        <input
-          type="text"
-          onChange={(e) => setLocationNumber(e.target.value)}
-          value={locationNumber}
-          placeholder="Scenario nummer"
+      {/* Form for adding*/}
+      <form onSubmit={handleSubmitLocation} className="small-form-wrapper">
+        <div className="ml10">
+          <input
+            type="text"
+            onChange={(e) => setLocationNumber(e.target.value)}
+            value={locationNumber}
+            placeholder="Scenario nummer"
+          />
+          <input
+            type="text"
+            onChange={(e) => setLocation(e.target.value)}
+            value={location}
+            placeholder="Scenario Namn"
+          />
+        </div>
+
+        <button type="submit" className="mr10 small-button">
+          Lägg till
+        </button>
+      </form>
+      {/* unlocked locations */}
+      <div>
+        <LocationButton
+          toggleFunc={toggleUnlocked}
+          buttonName="Unlocked"
+          openClosed={unlocked}
+          number={locationsArray.length}
+          
         />
-        <input
-          type="text"
-          onChange={(e) => setLocation(e.target.value)}
-          value={location}
-          placeholder="Scenario Namn"
+        <div className={`${unlocked ? "block" : "none"}`}>
+          {locationsArray.map((location) => (
+            <QuizCard
+              key={location.id}
+              {...location}
+              deletecomp={deleteLocation}
+              changecomp={changeCompleted}
+              buttonname="Done"
+              
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Available locations */}
+      <div>
+        <LocationButton
+          toggleFunc={toggleAvailable}
+          buttonName="Available(Not completed)"
+          openClosed={available}
+          number={availableArray.length}
         />
+        <div className={`${available ? "block" : "none"}`}>
+          {availableArray.map((location) => (
+            <QuizCard
+              key={location.id}
+              {...location}
+              deletecomp={deleteLocation}
+              changecomp={changeCompleted}
+              buttonname="Done"
+            />
+          ))}
+        </div>
       </div>
 
-      <button type="submit" className="mr10 small-button">
-        Lägg till
+      {/* Completed locations */}
+      <div>
+        <LocationButton
+          toggleFunc={toggleCompleted}
+          openClosed={completed}
+          buttonName="Completed"
+          number={completedArray.length}
+        />
+        <div className={`${completed ? "block" : "none"}`}>
+          {completedArray.map((location) => (
+            <QuizCard
+              key={location.id}
+              {...location}
+              deletecomp={deleteLocation}
+              changecomp={changeCompleted}
+              buttonname="Undo"
+            />
+          ))}
+        </div>
+      </div>
+
+      <button
+        onClick={() => saveToDataBase()}
+        className="small-form-wrapper loc-name"
+      >
+        Save Changes
       </button>
-    </form>
-    {/* unlocked locations */}
-    <div>
-      <LocationButton toggleFunc={toggleUnlocked} buttonName="Unlocked" openClosed={unlocked}/>
-      <div className={`${unlocked ? "block" : "none"}`}>
-        {locationsArray.map((location) => (
-          <QuizCard
-            key={location.id}
-            {...location}
-            deletecomp={deleteLocation}
-            changecomp={changeCompleted}
-            buttonname="Done"
-          />
-        ))}
-      </div>
     </div>
-
-    {/* Available locations */}
-    <div>
-      <LocationButton
-        toggleFunc={toggleAvailable}
-        buttonName="Available(Not completed)"
-        openClosed={available}
-      />
-      <div className={`${available ? "block" : "none"}`}>
-        {availableArray.map((location) => (
-          <QuizCard
-            key={location.id}
-            {...location}
-            deletecomp={deleteLocation}
-            changecomp={changeCompleted}
-            buttonname="Done"
-          />
-        ))}
-      </div>
-    </div>
-
-    {/* Completed locations */}
-    <div>
-      <LocationButton toggleFunc={toggleCompleted} openClosed={completed} buttonName="Completed" />
-      <div className={`${completed ? "block" : "none"}`}>
-        {completedArray.map((location) => (
-          <QuizCard
-            key={location.id}
-            {...location}
-            deletecomp={deleteLocation}
-            changecomp={changeCompleted}
-            buttonname="Undo"
-          />
-        ))}
-      </div>
-    </div>
-
-    <button 
-    onClick={()=> saveToDataBase()}        className="location-form-wrapper">
-        SAVE to db
-      </button>
-  </div>
-    
-   );
+  );
 }
 
  

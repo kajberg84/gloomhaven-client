@@ -26,13 +26,6 @@
   grid-area: location;
 }
 
-.none{
-  display: none;
-}
-
-.block {
-  display: block;
-}
 
 .done {
   text-decoration: line-through;

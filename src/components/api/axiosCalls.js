@@ -26,7 +26,13 @@ try {
   console.log("Error i post axios", error)
 }
 }
-
+/**
+ * Delete a specific hero
+ *
+ * @export
+ * @param {*} token
+ * @param {*} id
+ */
 export async function delHeroAxios(token, id) {
 const sendURL = `${checkEnvironment()}/heroes/${id}`
   try {
@@ -43,6 +49,31 @@ const sendURL = `${checkEnvironment()}/heroes/${id}`
   }
 }
 
+    /**
+ * Query post with axios
+ * 
+ * @param { Object } data - userdata
+ * @param { String } postURL- Url to post to
+ * @returns {response / false} - Response or false
+ */
+     export async function queryAxios(username, password) {
+      try {
+        const response = await postAxios({}, `${checkEnvironment()}/login?username=${username}&password=${password}`)
+      
+        if(response) return response
+        else return false
+      } catch (error) {
+        console.log("query error",error)
+      } 
+    }
+
+/**
+ * Get all heroes.
+ *
+ * @export
+ * @param {*} token
+ * @return {*} 
+ */
 export async function getHeroesAxios(token){
   try {
     const response = await axios({
@@ -61,23 +92,31 @@ export async function getHeroesAxios(token){
   }
 }
 
-
-    /**
- * Query post with axios
- * 
- * @param { Object } data - userdata
- * @param { String } postURL- Url to post to
- * @returns {response / false} - Response or false
+/**
+ * Add a hero
+ *
+ * @export
+ * @param {*} token
+ * @param {*} id
  */
-     export async function queryAxios(username, password) {
-      try {
-        const response = await postAxios({}, `${checkEnvironment()}/login?username=${username}&password=${password}`)
-      
-        if(response) return response
-        else return false
-      } catch (error) {
-        console.log("query error",error)
+export async function addHeroAxios(token, heroName,heroClass) {
+const sendURL = `${checkEnvironment()}/heroes`
+  try {
+    await axios({
+      url: sendURL,
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+      data: {
+  name: heroName,
+  heroClass: heroClass,
+  level: 1,
+  retirement:false
       }
-      
-      
-          }
+    })          
+  } catch (error) {
+    console.log("error i post Hero");
+    console.log(error.message);
+  }
+}
