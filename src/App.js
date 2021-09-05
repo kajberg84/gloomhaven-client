@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Ui
 import Navbar from "./components/ui/navbar/Navbar";
 import Footer from "./components/ui/footer/Footer";
+import LeftSlider from './components/ui/leftslider/LeftSlider';
 //Pages
 import Home from "./components/pages/home/Home";
 import Login from "./components/pages/login/Login";
@@ -34,6 +35,7 @@ const App = () => {
         {/* main */}
 
         <main className="main-wrapper">
+          <LeftSlider/>
           <Switch>
             <Route exact path="/">
               <Home />

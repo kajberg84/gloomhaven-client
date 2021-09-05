@@ -1,5 +1,6 @@
 import "./PartyMembers.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../statemanagement/UserContext";
 import LocationButton from "../buttonlocation/LocationButton";
 import ShowHero from "../showhero/ShowHero";
 import { getToken } from "../../api/getToken";
@@ -16,6 +17,8 @@ const PartyMembers = () => {
   const [heroClass, setHeroClass] = useState("");
   const [heroLevel, setHeroLevel] = useState("1");
   const [heroReti, setHeroReti] = useState(false);
+  const { leftSliderState } = useContext(UserContext);
+  const [leftSlider, setLeftSlider] = leftSliderState;
 
   // Get heroes from DB
   useEffect(() => {
@@ -48,12 +51,19 @@ const PartyMembers = () => {
     setOpenHeroForm(!openHeroForm);
   };
 
-  // Deleting hero and updating heroes array
+  // Deleting hero
   const deleteHero = (id) => {
     const accToken = getToken();
     delHeroAxios(accToken, id);
     const updatedHeroes = [...heroesArray].filter((item) => item._id !== id);
     setHeroesArray(updatedHeroes);
+  };
+
+  // Edit hero
+  const editHero = (hero) => {
+    console.log('editing hero',hero)
+  // skapa en popup där ta in info. 
+  setLeftSlider(true)
   };
 
   // Adding hero and updating
@@ -82,7 +92,7 @@ const PartyMembers = () => {
           <div className=" hero-button-wrapper">
 
           <button onClick={toggleAddHero} className="mr10 small-button ">
-          {`${openHeroForm ? "Close" : "Open"}`} hero edit
+          {`${openHeroForm ? "Close" : "Open"}`} add hero
           </button>
           </div>
           <div className={`${openHeroForm ? "block" : "none"}`}>
@@ -104,7 +114,6 @@ const PartyMembers = () => {
               </button>
             </form>
           </div>
-          <form></form>
           {heroesArray.map((item) => (
             <ShowHero
               key={item._id}
@@ -113,12 +122,11 @@ const PartyMembers = () => {
               heroClass={item.heroClass}
               level={item.level}
               retirement={item.retirement}
-              deletehero={deleteHero}
+              editHero={editHero}              
             />
           ))}
         </div>
       </div>
-
       {/* form for adding hero */}
     </div>
   );

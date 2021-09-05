@@ -1,6 +1,6 @@
 import "./ShowHero.css";
 const ShowHero = (props) => {
-  const { _id, name, heroClass, level, deletehero } = props;
+  const { _id, name, heroClass, level, editHero } = props;
   return (
     <div className="minor-wrapper ">
       <div className="hero-wrapper" >
@@ -8,11 +8,8 @@ const ShowHero = (props) => {
         {name} -- {heroClass},level: {level}
         </p>
         <div>
-        <button className="small-button mr10">
-          Retire
-        </button>        
-        <button onClick={() => deletehero(_id)} className="small-button mr10">
-          Remove
+        <button onClick={() => editHero(props)} className="small-button mr10">
+         Edit
         </button>        
         </div>
       </div>
