@@ -62,8 +62,8 @@ const PartyMembers = () => {
   // Edit hero
   const editHero = (hero) => {
     console.log('editing hero',hero)
-  // skapa en popup där ta in info. 
   setLeftSlider(true)
+  
   };
 
   // Adding hero and updating

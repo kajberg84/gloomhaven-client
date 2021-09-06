@@ -1,4 +1,6 @@
 import './Footer.css'
+import react from 'react';
+import SwitchTheme from '../themeComponent/SwitchTheme';
 
 const Footer = () => {
   return ( 
@@ -17,8 +19,8 @@ const Footer = () => {
         </ul>
       </div>
         {/* saving this empty if i want to add without breaking css */}
-        <div className="textinfo">
-          {""}
+        <div className="thembutton">
+        <SwitchTheme />
       </div>
     </div>
    );

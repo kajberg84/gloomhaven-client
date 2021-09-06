@@ -87,7 +87,7 @@ color:var(--text-white-color);
   flex-direction: column;
   background-color: var(--header-color);
   border:2px solid var(--primary-color);
-  color: var(--primary-color);
+
   height: 2rem;
   justify-content: center;
   margin-top: 0.2rem;
@@ -97,6 +97,11 @@ color:var(--text-white-color);
 .minor-wrapper:nth-child(odd) {
   color: var(--text-white-color);
  }
+ .minor-wrapper:nth-child(even) {
+  color: var(--text-dark-color);
+ }
+ 
+
 .none{
   display: none;
 }

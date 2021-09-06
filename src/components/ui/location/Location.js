@@ -126,6 +126,7 @@ const Location = () => {
 
   // Saving to db
   const  saveToDataBase = async () => {
+    console.log("Sparad till db", locationsArray.length)
     try {
       const accToken = getToken();
       if (!accToken) {

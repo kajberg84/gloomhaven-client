@@ -11,6 +11,25 @@
   --text-error:rgb(102, 210, 255);
 }
 
+html.dark {
+  --offwhite-color:rgba(255, 255, 255, 0.87);
+  --text-dark-color:#121212;
+  --text-white-color:rgba(255, 255, 255, 0.87); 
+  --primary-color:	#121212; 
+  --bgc-color:rgb(57, 57, 61);
+}
+
+html.light {
+  --offwhite-color:#121212;
+  --text-dark-color:rgba(255, 255, 255, 0.87);
+  --text-white-color:#121212; 
+  --primary-color:	rgb(41, 163, 204);
+  --bgc-color:rgba(255, 255, 255, 0.87);
+}
+
+/* --primary-color:	rgb(41, 163, 204);
+--secondary-color:rgba(41, 240, 88, 0.863); */
+
 * {
   margin: 0;
   padding: 0;
