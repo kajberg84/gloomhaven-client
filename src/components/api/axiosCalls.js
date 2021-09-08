@@ -99,22 +99,29 @@ export async function getHeroesAxios(token){
  * @param {*} token
  * @param {*} id
  */
-export async function addHeroAxios(token, heroName,heroClass) {
-const sendURL = `${checkEnvironment()}/heroes`
+export async function addHeroAxios(
+  token,
+  heroName,
+  heroClass,
+  heroLevel,
+  methodName
+) {
+  console.log("___i axios", methodName);
+  const sendURL = `${checkEnvironment()}/heroes`;
   try {
     await axios({
       url: sendURL,
-      method: "POST",
+      method: methodName,
       headers: {
         Authorization: "Bearer " + token,
       },
       data: {
-  name: heroName,
-  heroClass: heroClass,
-  level: 1,
-  retirement:false
-      }
-    })          
+        name: heroName,
+        heroClass: heroClass,
+        level: heroLevel,
+        retirement: false,
+      },
+    });
   } catch (error) {
     console.log("error i post Hero");
     console.log(error.message);

@@ -12,7 +12,7 @@
   --text-dark-color:#121212;
   --text-error:rgb(102, 210, 255);
   --button-accept:rgb(14, 216, 14);
-
+  --bgc-drop:rgba(0, 0, 0, 0.8);
 }
 
 html.dark {

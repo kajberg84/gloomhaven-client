@@ -8,13 +8,13 @@
   height: 100%; 
   top: 0; 
   left: 0;
-  background-color: rgba(0,0,0,0.87); 
+  background-color:  var(--bgc-drop); 
   z-index: 999; 
   cursor: pointer;
 }
 
 .content {
-      background-color: var(--primary-color);
+      background: var(--bgc-drop);
       border-radius: 0.25rem;
       width: 80%;
       height: min-content;

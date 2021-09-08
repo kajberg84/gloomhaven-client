@@ -18,7 +18,6 @@ const Login = () => {
   const [showErrorStatus, setShowErrorStatus] = useState(null);
   const [errorLogin, setErrorLogin ] = useState({})
 
-
   const history = useHistory();
 
   // Handling response from Login

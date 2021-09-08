@@ -1,12 +1,11 @@
 import "./PartyMembers.css";
-import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../../statemanagement/UserContext";
+import { useState, useEffect } from "react";
 import LocationButton from "../buttonlocation/LocationButton";
 import ShowHero from "../showhero/ShowHero";
 import { getToken } from "../../api/getToken";
 // import { checkEnvironment } from "../../api/checkEnv";
 // import axios from "axios";
-import { delHeroAxios, getHeroesAxios, addHeroAxios } from "../../api/axiosCalls";
+import { delHeroAxios,  getHeroesAxios,  addHeroAxios,} from "../../api/axiosCalls";
 import Modal from "../modal/Modal";
 const PartyMembers = () => {
   // state
@@ -15,11 +14,9 @@ const PartyMembers = () => {
   // Individual hero states
   const [heroName, setHeroName] = useState("");
   const [heroClass, setHeroClass] = useState("");
-  const [heroLevel, setHeroLevel] = useState("1");
+  const [heroLevel, setHeroLevel] = useState("");
   const [heroReti, setHeroReti] = useState(false);
-  const { modal } = useContext(UserContext);
-
-  const [modalState, setModalState] = modal;
+  const [modalState, setModalState] = useState(false);
 
   // Get heroes from DB
   useEffect(() => {
@@ -57,22 +54,22 @@ const PartyMembers = () => {
     setHeroesArray(updatedHeroes);
   };
 
-  // Edit hero
-  const editHero = (hero) => {
-    console.log("editing hero", hero);
-  };
-
   // Adding hero and updating
   const handleAddHero = async (e) => {
     e.preventDefault();
     const accToken = getToken();
-    addHeroAxios(accToken, heroName, heroClass);
+    addHeroAxios(accToken, heroName, heroClass, heroLevel, "POST");
     const responseArray = await getHeroesAxios(accToken);
     setHeroName("");
     setHeroClass("");
+    setHeroLevel("");
     if (responseArray.length > 0) {
       setHeroesArray(responseArray);
     }
+  };
+
+  const modalHandle = () => {
+    setModalState(!modalState);
   };
 
   return (
@@ -86,15 +83,12 @@ const PartyMembers = () => {
       <div className={`${heroButton ? "block" : "none"}`}>
         <div>
           <div className="disp-flex w100">
-            <button
-              onClick={() => setModalState(true)}
-              className="small-button"
-            >
+            <button onClick={() => modalHandle()} className="small-button">
               Add Hero
             </button>
           </div>
           {modalState && (
-            <Modal closeModal={() => setModalState(false)}>
+            <Modal closeModal={() => modalHandle()}>
               <form className="small-form-wrapper col" onSubmit={handleAddHero}>
                 <p className="text-col-w"> HeroName </p>
                 <input
@@ -112,6 +106,14 @@ const PartyMembers = () => {
                   value={heroClass}
                   placeholder="HeroClass here"
                 ></input>
+                <p className="text-col-w mt5"> HeroLevel </p>
+                <input
+                  className="p2"
+                  type="text"
+                  onChange={(e) => setHeroLevel(e.target.value)}
+                  value={heroLevel}
+                  placeholder="HeroLevel here"
+                ></input>
                 <button type="submit" className="mt5 small-button">
                   Add
                 </button>
@@ -127,7 +129,6 @@ const PartyMembers = () => {
               heroClass={item.heroClass}
               level={item.level}
               retirement={item.retirement}
-              editHero={editHero}
             />
           ))}
         </div>

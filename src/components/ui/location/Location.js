@@ -1,6 +1,5 @@
 import './Location.css'
-import React, { useState, useEffect, useContext } from "react";
-import { UserContext } from "../../statemanagement/UserContext";
+import React, { useState, useEffect} from "react";
 import { checkEnvironment } from "../../api/checkEnv";
 import { getToken } from "../../api/getToken";
 import axios from "axios";
@@ -20,8 +19,7 @@ const Location = () => {
   const [available, setAvailable] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [openLocations, setOpenLocations] = useState(false);
-  const { modal } = useContext(UserContext);
-  const [modalState, setModalState] = modal;
+  const [modalState, setModalState] = useState(false);
   // Filter locations array for available/completed
   const availableLocations = () => {
     const filteredAvailable = locationsArray.filter((location) => {
@@ -158,6 +156,10 @@ const Location = () => {
     }
   };
 
+  const modalHandle = () => {
+    setModalState(!modalState)
+  }
+
   return (
     <div>
       <LocationButton
@@ -170,14 +172,14 @@ const Location = () => {
         <div>
           <div className="disp-flex w100">
             <button
-              onClick={() => setModalState(true)}
+              onClick={() => modalHandle()} 
               className="small-button"
             >
               Add Location
             </button>
           </div>
           {modalState && (
-            <Modal closeModal={() => setModalState(false)}>
+            <Modal closeModal={() => modalHandle()}>
               <form
                 onSubmit={handleSubmitLocation}
                 className="location-form-wrapper disp-flex col"
@@ -201,7 +203,7 @@ const Location = () => {
                   />
                 </div>
                 <button type="submit" className="mt5 small-button">
-                  Lägg till Location
+                  Add Location
                 </button>
               </form>
             </Modal>
