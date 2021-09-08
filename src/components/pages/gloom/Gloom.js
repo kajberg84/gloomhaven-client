@@ -1,7 +1,7 @@
 import './Gloom.css'
 import Location from '../../ui/location/Location'
 import PartyMembers from '../../ui/partymembers/PartyMembers';
-import ReputationBar from "../../ui/reputationbar/ReputationBar";
+// import ReputationBar from "../../ui/reputationbar/ReputationBar";
 const Gloom = () => {
   return (
     <div className="all-locations-wrapper">

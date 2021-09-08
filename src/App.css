@@ -11,6 +11,8 @@
   --text-white:rgba(255, 255, 255, 0.87);
   --text-dark-color:#121212;
   --text-error:rgb(102, 210, 255);
+  --button-accept:rgb(14, 216, 14);
+
 }
 
 html.dark {

@@ -14,9 +14,10 @@
 }
 
 .content {
-      background-color: red;
+      background-color: var(--primary-color);
       border-radius: 0.25rem;
       width: 80%;
-      height: 80%;
+      height: min-content;
       position: relative;
+      padding: 1rem 3rem 3rem 1rem;
 }

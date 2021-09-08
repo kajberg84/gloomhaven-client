@@ -57,8 +57,6 @@ input:hover,
   padding: 0.2rem 0;
   margin: 0.2rem 0.2rem 0 0;
   background-color: var(--primary-color);
-  color: #121212;
   display: flex;
-  border:2px solid var(--bgc-color);
   align-items: center;
 }

@@ -41,7 +41,6 @@ const Login = () => {
         {},
         `login?email=${userEmail}&password=${userPassword}`
       );
-        console.log("response login", responseLogin)
       if (responseLogin) {
         handleRespLogin(responseLogin);
       } else {

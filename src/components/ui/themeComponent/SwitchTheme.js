@@ -17,7 +17,6 @@ const handleTheme = () => {
  
 // useffect on switch theme
 useEffect(()=> {
-  console.log('new theme ', themeColor)
  if(themeColor === 'light'){   
   document.querySelector("html").classList.remove('dark')
   document.querySelector("html").classList.add('light')

@@ -1,10 +1,12 @@
 import './Location.css'
 import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../statemanagement/UserContext";
 import { checkEnvironment } from "../../api/checkEnv";
 import { getToken } from "../../api/getToken";
 import axios from "axios";
 import QuizCard from "../../ui/quizlocation/QuizCard";
 import LocationButton from "../../ui/buttonlocation/LocationButton";
+import Modal from "../modal/Modal";
 
 const Location = () => {
   const [locationsArray, setLocationsArray] = useState([]);
@@ -17,7 +19,9 @@ const Location = () => {
   const [unlocked, setUnlocked] = useState(false);
   const [available, setAvailable] = useState(false);
   const [completed, setCompleted] = useState(false);
-
+  const [openLocations, setOpenLocations] = useState(false);
+  const { modal } = useContext(UserContext);
+  const [modalState, setModalState] = modal;
   // Filter locations array for available/completed
   const availableLocations = () => {
     const filteredAvailable = locationsArray.filter((location) => {
@@ -29,7 +33,7 @@ const Location = () => {
     setAvailableArray(filteredAvailable);
     setCompletedArray(filteredCompleted);
   };
- 
+
   // Get from DB
   useEffect(() => {
     async function getLocations() {
@@ -48,12 +52,12 @@ const Location = () => {
           },
         });
         const locationArray = response.data;
-        
+
         if (locationArray.length > 0) {
           //Sorting array by location number
-          const sortedCartItems = locationArray.sort((a,b) => {
-            return a.locationnumber - b.locationnumber
-          })
+          const sortedCartItems = locationArray.sort((a, b) => {
+            return a.locationnumber - b.locationnumber;
+          });
           setLocationsArray(sortedCartItems);
         }
       } catch (error) {
@@ -67,12 +71,14 @@ const Location = () => {
   // When array change from db
   useEffect(() => {
     function updateLocations() {
-      availableLocations();      
-    }    
+      availableLocations();
+    }
     updateLocations();
   }, [locationsArray]);
 
-
+  const toggleLocation = () => {
+    setOpenLocations(!openLocations);
+  };
   //change state on unlocked
   const toggleUnlocked = () => {
     setUnlocked(!unlocked);
@@ -89,19 +95,20 @@ const Location = () => {
   // TOGGLE completed button
   const changeCompleted = (locationId) => {
     const updatedLocations = [...locationsArray].map((item) => {
-      if(item.id === locationId) {
+      if (item.id === locationId) {
         item.completed = !item.completed;
       }
-      return item
-    })
-    setLocationsArray(updatedLocations)
+      return item;
+    });
+    setLocationsArray(updatedLocations);
   };
 
   const deleteLocation = (locationId) => {
-    const updatedLocations = [...locationsArray].filter((item) => 
-    item.id !== locationId)
-    setLocationsArray(updatedLocations)
-  }
+    const updatedLocations = [...locationsArray].filter(
+      (item) => item.id !== locationId
+    );
+    setLocationsArray(updatedLocations);
+  };
 
   const handleSubmitLocation = (e) => {
     e.preventDefault();
@@ -125,8 +132,8 @@ const Location = () => {
   };
 
   // Saving to db
-  const  saveToDataBase = async () => {
-    console.log("Sparad till db", locationsArray.length)
+  const saveToDataBase = async () => {
+    console.log("Sparad till db", locationsArray.length);
     try {
       const accToken = getToken();
       if (!accToken) {
@@ -134,7 +141,7 @@ const Location = () => {
         error.status = 401;
         throw error;
       }
-      const sendURL = `${checkEnvironment()}/gloom`
+      const sendURL = `${checkEnvironment()}/gloom`;
       await axios({
         url: sendURL,
         method: "POST",
@@ -142,111 +149,138 @@ const Location = () => {
           Authorization: "Bearer " + accToken,
         },
         data: {
-          glooms: locationsArray
-        }
-      })          
+          glooms: locationsArray,
+        },
+      });
     } catch (error) {
       console.log("error i post Location");
       console.log(error.message);
     }
-  }
+  };
+
   return (
     <div>
+      <LocationButton
+        toggleFunc={toggleLocation}
+        buttonName="Locations"
+        openClosed={openLocations}
+        number={locationsArray.length}
+      />
+      {openLocations && (
+        <div>
+          <div className="disp-flex w100">
+            <button
+              onClick={() => setModalState(true)}
+              className="small-button"
+            >
+              Add Location
+            </button>
+          </div>
+          {modalState && (
+            <Modal closeModal={() => setModalState(false)}>
+              <form
+                onSubmit={handleSubmitLocation}
+                className="location-form-wrapper disp-flex col"
+              >
+                <div className="ml10 disp-flex col">
+                  <p className="mt5">Scenario Number</p>
+                  <input
+                  className="p2"
+                    type="text"
+                    onChange={(e) => setLocationNumber(e.target.value)}
+                    value={locationNumber}
+                    placeholder="Scenario number"
+                  />
+                                    <p className="mt5">Scenario Name</p>
+                  <input
+                    className="p2"
+                    type="text"
+                    onChange={(e) => setLocation(e.target.value)}
+                    value={location}
+                    placeholder="Scenario name"
+                  />
+                </div>
+                <button type="submit" className="mt5 small-button">
+                  Lägg till Location
+                </button>
+              </form>
+            </Modal>
+          )}
+
+          {/* unlocked locations */}
+          <div>
+            <LocationButton
+              toggleFunc={toggleUnlocked}
+              buttonName="Unlocked"
+              openClosed={unlocked}
+              number={locationsArray.length}
+            />
+            <div className={`${unlocked ? "block" : "none"}`}>
+              {locationsArray.map((location) => (
+                <QuizCard
+                  key={location.id}
+                  {...location}
+                  deletecomp={deleteLocation}
+                  changecomp={changeCompleted}
+                  buttonname="Done"
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Available locations */}
+          <div>
+            <LocationButton
+              toggleFunc={toggleAvailable}
+              buttonName="Available(Not completed)"
+              openClosed={available}
+              number={availableArray.length}
+            />
+            <div className={`${available ? "block" : "none"}`}>
+              {availableArray.map((location) => (
+                <QuizCard
+                  key={location.id}
+                  {...location}
+                  deletecomp={deleteLocation}
+                  changecomp={changeCompleted}
+                  buttonname="Done"
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Completed locations */}
+          <div>
+            <LocationButton
+              toggleFunc={toggleCompleted}
+              openClosed={completed}
+              buttonName="Completed"
+              number={completedArray.length}
+            />
+            <div className={`${completed ? "block" : "none"}`}>
+              {completedArray.map((location) => (
+                <QuizCard
+                  key={location.id}
+                  {...location}
+                  deletecomp={deleteLocation}
+                  changecomp={changeCompleted}
+                  buttonname="Undo"
+                />
+              ))}
+            </div>
+          </div>
+          <div className="disp-flex mt10">
+          <button onClick={() => saveToDataBase()} className="save-button p4">
+            <p>Save Changes to Locations</p>
+          </button>
+
+          </div>
+        </div>
+      )}
       {/* Form for adding*/}
-      <form onSubmit={handleSubmitLocation} className="small-form-wrapper">
-        <div className="ml10">
-          <input
-            type="text"
-            onChange={(e) => setLocationNumber(e.target.value)}
-            value={locationNumber}
-            placeholder="Scenario nummer"
-          />
-          <input
-            type="text"
-            onChange={(e) => setLocation(e.target.value)}
-            value={location}
-            placeholder="Scenario Namn"
-          />
-        </div>
-
-        <button type="submit" className="mr10 small-button">
-          Lägg till
-        </button>
-      </form>
-      {/* unlocked locations */}
-      <div>
-        <LocationButton
-          toggleFunc={toggleUnlocked}
-          buttonName="Unlocked"
-          openClosed={unlocked}
-          number={locationsArray.length}
-          
-        />
-        <div className={`${unlocked ? "block" : "none"}`}>
-          {locationsArray.map((location) => (
-            <QuizCard
-              key={location.id}
-              {...location}
-              deletecomp={deleteLocation}
-              changecomp={changeCompleted}
-              buttonname="Done"
-              
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Available locations */}
-      <div>
-        <LocationButton
-          toggleFunc={toggleAvailable}
-          buttonName="Available(Not completed)"
-          openClosed={available}
-          number={availableArray.length}
-        />
-        <div className={`${available ? "block" : "none"}`}>
-          {availableArray.map((location) => (
-            <QuizCard
-              key={location.id}
-              {...location}
-              deletecomp={deleteLocation}
-              changecomp={changeCompleted}
-              buttonname="Done"
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Completed locations */}
-      <div>
-        <LocationButton
-          toggleFunc={toggleCompleted}
-          openClosed={completed}
-          buttonName="Completed"
-          number={completedArray.length}
-        />
-        <div className={`${completed ? "block" : "none"}`}>
-          {completedArray.map((location) => (
-            <QuizCard
-              key={location.id}
-              {...location}
-              deletecomp={deleteLocation}
-              changecomp={changeCompleted}
-              buttonname="Undo"
-            />
-          ))}
-        </div>
-      </div>
-
-      <button
-        onClick={() => saveToDataBase()}
-        className="small-form-wrapper loc-name"
-      >
-        Save Changes
-      </button>
     </div>
   );
-}
+};
 
  
 export default Location;

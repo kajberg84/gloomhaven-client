@@ -1,14 +1,10 @@
 
-/* Margin*/
-.mt10{
-  margin-top: 1rem;
-}
+/* Margin, Padding*/
 .mt5{
   margin-top: 0.5rem;
 }
-
-.m10{
-  margin: 1rem 1rem 0;
+.mt10{
+  margin-top: 1rem;
 }
 
 .mb10{
@@ -23,6 +19,17 @@
   margin-left: 1rem;
 }
 
+.m10{
+  margin: 1rem 1rem 0;
+}
+
+.p2 {
+  padding: 0.2rem;
+}
+
+.p4 {
+  padding: 0.4rem;
+}
 /* font */
 .text-cen{
   text-align: center;
@@ -46,6 +53,11 @@
 .row{
   flex-direction: row;
 }
+
+.w100{
+  width: 100%;
+}
+
 /* button*/
 .btn {
   display: inline-block;
@@ -95,14 +107,12 @@ color:var(--text-white-color);
   margin-top: 0.2rem;
 }
 
-
 .minor-wrapper:nth-child(odd) {
   color: var(--text-white-color);
  }
  .minor-wrapper:nth-child(even) {
   color: var(--text-dark-color);
- }
- 
+ } 
 
 .none{
   display: none;

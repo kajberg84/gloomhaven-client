@@ -11,7 +11,6 @@ import Modal from "../modal/Modal";
 const PartyMembers = () => {
   // state
   const [heroButton, setHeroButton] = useState(false);
-  // const [openHeroForm, setOpenHeroForm] = useState(false);
   const [heroesArray, setHeroesArray] = useState([]);
   // Individual hero states
   const [heroName, setHeroName] = useState("");
@@ -49,9 +48,6 @@ const PartyMembers = () => {
   const toggleHeroButton = () => {
     setHeroButton(!heroButton);
   };
-  // const toggleAddHero = () => {
-  //   setOpenHeroForm(!openHeroForm);
-  // };
 
   // Deleting hero
   const deleteHero = (id) => {
@@ -89,24 +85,28 @@ const PartyMembers = () => {
       />
       <div className={`${heroButton ? "block" : "none"}`}>
         <div>
-          <div className=" hero-button-wrapper">
-            <button 
-            onClick={() => setModalState(true)}
-            className="small-button"
-            >Add Hero</button>
+          <div className="disp-flex w100">
+            <button
+              onClick={() => setModalState(true)}
+              className="small-button"
+            >
+              Add Hero
+            </button>
           </div>
           {modalState && (
             <Modal closeModal={() => setModalState(false)}>
               <form className="small-form-wrapper col" onSubmit={handleAddHero}>
                 <p className="text-col-w"> HeroName </p>
                 <input
+                  className="p2"
                   type="text"
                   onChange={(e) => setHeroName(e.target.value)}
                   value={heroName}
                   placeholder="Heroname here"
                 ></input>
-                <p className="text-col-w mt5" > HeroClass </p>
+                <p className="text-col-w mt5"> HeroClass </p>
                 <input
+                  className="p2"
                   type="text"
                   onChange={(e) => setHeroClass(e.target.value)}
                   value={heroClass}
