@@ -1,6 +1,6 @@
 import "./ShowHero.css";
 const ShowHero = (props) => {
-  const { _id, name, heroClass, level, editHero } = props;
+  const { _id, name, heroClass, level, editHero} = props;
   return (
     <div className="minor-wrapper ">
       <div className="hero-wrapper" >

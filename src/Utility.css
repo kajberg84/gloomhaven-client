@@ -11,7 +11,6 @@
   margin: 1rem 1rem 0;
 }
 
-
 .mb10{
   margin-bottom: 1rem;
 }
@@ -27,6 +26,10 @@
 /* font */
 .text-cen{
   text-align: center;
+}
+
+.text-col-w {
+  color:var(--text-white);
 }
 
 /* utilityclasses */
@@ -87,7 +90,6 @@ color:var(--text-white-color);
   flex-direction: column;
   background-color: var(--header-color);
   border:2px solid var(--primary-color);
-
   height: 2rem;
   justify-content: center;
   margin-top: 0.2rem;

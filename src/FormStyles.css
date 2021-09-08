@@ -60,5 +60,5 @@ input:hover,
   color: #121212;
   display: flex;
   border:2px solid var(--bgc-color);
-  justify-content: space-between;
+  align-items: center;
 }

@@ -25,6 +25,7 @@ const LeftSlider = (props) => {
         <button onClick={() => closeLeftSlider()}>
           Close
         </button>
+        {props.children}
       </div>
     </div>
   );

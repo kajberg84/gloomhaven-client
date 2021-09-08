@@ -1,5 +1,6 @@
-rad 96 i gloom
+en hero modal och en location modal.
 
-ska updatera och skicka post till db om updaterade locations.
+beroende på infon som kommer in så renderas den på left slider.
 
+sen den modalen kommer prata med min backend.
 

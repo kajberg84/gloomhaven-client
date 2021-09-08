@@ -18,10 +18,11 @@ const Footer = () => {
           <li>© Copyright 2021</li>
         </ul>
       </div>
-        {/* saving this empty if i want to add without breaking css */}
-        <div className="thembutton">
+
+      <div className="">
         <SwitchTheme />
       </div>
+
     </div>
    );
 }

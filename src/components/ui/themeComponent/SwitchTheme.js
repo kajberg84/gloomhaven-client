@@ -27,12 +27,13 @@ useEffect(()=> {
  }
 }, [themeColor])
 
-  return ( 
+  return (
     <div>
-      <button onClick={handleTheme}> change 
+      <button onClick={handleTheme}>
+        {themeColor === "light" ? "dark" : "light"}
       </button>
     </div>
-   );
+  );
 }
  
 export default SwitchTheme;

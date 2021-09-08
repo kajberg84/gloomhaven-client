@@ -7,18 +7,20 @@ import { getToken } from "../../api/getToken";
 // import { checkEnvironment } from "../../api/checkEnv";
 // import axios from "axios";
 import { delHeroAxios, getHeroesAxios, addHeroAxios } from "../../api/axiosCalls";
+import Modal from "../modal/Modal";
 const PartyMembers = () => {
   // state
   const [heroButton, setHeroButton] = useState(false);
-  const [openHeroForm, setOpenHeroForm] = useState(false);
+  // const [openHeroForm, setOpenHeroForm] = useState(false);
   const [heroesArray, setHeroesArray] = useState([]);
   // Individual hero states
   const [heroName, setHeroName] = useState("");
   const [heroClass, setHeroClass] = useState("");
   const [heroLevel, setHeroLevel] = useState("1");
   const [heroReti, setHeroReti] = useState(false);
-  const { leftSliderState } = useContext(UserContext);
-  const [leftSlider, setLeftSlider] = leftSliderState;
+  const { modal } = useContext(UserContext);
+
+  const [modalState, setModalState] = modal;
 
   // Get heroes from DB
   useEffect(() => {
@@ -47,9 +49,9 @@ const PartyMembers = () => {
   const toggleHeroButton = () => {
     setHeroButton(!heroButton);
   };
-  const toggleAddHero = () => {
-    setOpenHeroForm(!openHeroForm);
-  };
+  // const toggleAddHero = () => {
+  //   setOpenHeroForm(!openHeroForm);
+  // };
 
   // Deleting hero
   const deleteHero = (id) => {
@@ -61,9 +63,7 @@ const PartyMembers = () => {
 
   // Edit hero
   const editHero = (hero) => {
-    console.log('editing hero',hero)
-  setLeftSlider(true)
-  
+    console.log("editing hero", hero);
   };
 
   // Adding hero and updating
@@ -72,12 +72,12 @@ const PartyMembers = () => {
     const accToken = getToken();
     addHeroAxios(accToken, heroName, heroClass);
     const responseArray = await getHeroesAxios(accToken);
-    setHeroName("")
-    setHeroClass("")
+    setHeroName("");
+    setHeroClass("");
     if (responseArray.length > 0) {
       setHeroesArray(responseArray);
     }
-  }
+  };
 
   return (
     <div>
@@ -90,30 +90,35 @@ const PartyMembers = () => {
       <div className={`${heroButton ? "block" : "none"}`}>
         <div>
           <div className=" hero-button-wrapper">
+            <button 
+            onClick={() => setModalState(true)}
+            className="small-button"
+            >Add Hero</button>
+          </div>
+          {modalState && (
+            <Modal closeModal={() => setModalState(false)}>
+              <form className="small-form-wrapper col" onSubmit={handleAddHero}>
+                <p className="text-col-w"> HeroName </p>
+                <input
+                  type="text"
+                  onChange={(e) => setHeroName(e.target.value)}
+                  value={heroName}
+                  placeholder="Heroname here"
+                ></input>
+                <p className="text-col-w mt5" > HeroClass </p>
+                <input
+                  type="text"
+                  onChange={(e) => setHeroClass(e.target.value)}
+                  value={heroClass}
+                  placeholder="HeroClass here"
+                ></input>
+                <button type="submit" className="mt5 small-button">
+                  Add
+                </button>
+              </form>
+            </Modal>
+          )}
 
-          <button onClick={toggleAddHero} className="mr10 small-button ">
-          {`${openHeroForm ? "Close" : "Open"}`} add hero
-          </button>
-          </div>
-          <div className={`${openHeroForm ? "block" : "none"}`}>
-            <form className="small-form-wrapper" onSubmit={handleAddHero}>
-              <input
-                type="text"
-                onChange={(e) => setHeroName(e.target.value)}
-                value={heroName}
-                placeholder="Heroname here"
-              ></input>
-              <input
-                type="text"
-                onChange={(e) => setHeroClass(e.target.value)}
-                value={heroClass}
-                placeholder="HeroClass here"
-              ></input>
-              <button type="submit" className="mr10 small-button">
-                Add
-              </button>
-            </form>
-          </div>
           {heroesArray.map((item) => (
             <ShowHero
               key={item._id}
@@ -122,7 +127,7 @@ const PartyMembers = () => {
               heroClass={item.heroClass}
               level={item.level}
               retirement={item.retirement}
-              editHero={editHero}              
+              editHero={editHero}
             />
           ))}
         </div>

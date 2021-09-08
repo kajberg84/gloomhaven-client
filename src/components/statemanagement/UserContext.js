@@ -16,6 +16,8 @@ const UserProvider = ({ children }) => {
   const [startButton, setStartButton] = useState(true);
   const [appUser, setAppUser] = useState(null);
   const [leftSlider, setLeftSlider ] = useState(false);
+  const [modalState, setModalState ] = useState(false);
+
   // Usertoken state. undefined if not in localstorage
   const [userToken, setUserToken] = useState(() => {
     if (typeof window !== "undefined") {
@@ -85,7 +87,8 @@ const UserProvider = ({ children }) => {
         value: [startButton, setStartButton],
         userValue: [appUser, setAppUser],
         tokenValue: [userToken, setUserToken],
-        leftSliderState: [leftSlider, setLeftSlider]
+        leftSliderState: [leftSlider, setLeftSlider],
+        modal: [modalState, setModalState ]
       }}
     >
       {children}
